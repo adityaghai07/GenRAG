@@ -38,9 +38,10 @@ df = pd.DataFrame(pages_and_chunks)
 print(df.describe().round(2))
 
 min_token_length = 30
-for row in df[df["chunk_token_count"] <= min_token_length].sample(5).iterrows():
+# for row in df[df["chunk_token_count"] <= min_token_length].sample(5).iterrows():
  
-    print(f'Chunk token count: {row[1]["chunk_token_count"]} | Text: {row[1]["sentence_chunk"]}')
+#     print(f'Chunk token count: {row[1]["chunk_token_count"]} | Text: {row[1]["sentence_chunk"]}')
+
 pages_and_chunks_over_min_token_len = df[df["chunk_token_count"] > min_token_length].to_dict(orient="records")
 # pages_and_chunks_over_min_token_len[:2]
 
@@ -51,11 +52,13 @@ embed_text(pages_and_chunks_over_min_token_len)
 print(pages_and_chunks_over_min_token_len[0])
 
 
-
+print("Saving text chunks and embeddings to CSV")
 
 text_chunks_and_embeddings_df = pd.DataFrame(pages_and_chunks_over_min_token_len)
 embeddings_df_save_path = "data/text_chunks_and_embeddings_df.csv"
 text_chunks_and_embeddings_df.to_csv(embeddings_df_save_path, index=False)
+
+
 
 text_chunks_and_embedding_df_load = pd.read_csv(embeddings_df_save_path)
 print(text_chunks_and_embedding_df_load.head())
