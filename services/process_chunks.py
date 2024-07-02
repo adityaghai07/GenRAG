@@ -22,7 +22,7 @@ def process_chunks(pages_and_texts):
             pages_and_chunks.append(chunk_dict)
             print(len(pages_and_chunks))
 
-
+    print(f"Total chunks: {len(pages_and_chunks)}")
     return pages_and_chunks
 
 
