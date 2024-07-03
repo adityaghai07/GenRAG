@@ -3,14 +3,27 @@ from tqdm.auto import tqdm
 from services.text_to_chucks import split_list
 from services.process_chunks import process_chunks
 from services.embed_model import embed_text
+from services.get_pdf_path import get_pdf_path
 import pandas as pd
+import warnings
+warnings.filterwarnings('ignore', category=DeprecationWarning, module='tensorflow')
 import random
 from spacy.lang.en import English 
 nlp = English()
 nlp.add_pipe("sentencizer")
 
-pdf_path = 'data/The_intelligent_investor.pdf'
+
+
+
+pdf_path = get_pdf_path()
+
+########################################################################################
 num_sentence_chunk_size = 10
+min_token_length = 30
+########################################################################################
+
+print("Reading PDF and splitting text into chunks...")
+print("\n\n")
 
 pages_and_texts = open_and_read_pdf(pdf_path=pdf_path)
 
@@ -28,23 +41,16 @@ for item in tqdm(pages_and_texts):
     item["num_chunks"] = len(item["sentence_chunks"])
 
 
-# df = pd.DataFrame(pages_and_texts)
-# print(df.describe().round(2))
-# print(df.head(5))
-
 pages_and_chunks = process_chunks(pages_and_texts=pages_and_texts)
 
 df = pd.DataFrame(pages_and_chunks)
 print(df.describe().round(2))
 
-min_token_length = 30
-# for row in df[df["chunk_token_count"] <= min_token_length].sample(5).iterrows():
- 
-#     print(f'Chunk token count: {row[1]["chunk_token_count"]} | Text: {row[1]["sentence_chunk"]}')
+
+print("Removing text chunks with small size...")
+print("\n\n")
 
 pages_and_chunks_over_min_token_len = df[df["chunk_token_count"] > min_token_length].to_dict(orient="records")
-# pages_and_chunks_over_min_token_len[:2]
-
 
 
 embed_text(pages_and_chunks_over_min_token_len)
@@ -62,3 +68,6 @@ text_chunks_and_embeddings_df.to_csv(embeddings_df_save_path, index=False)
 
 text_chunks_and_embedding_df_load = pd.read_csv(embeddings_df_save_path)
 print(text_chunks_and_embedding_df_load.head())
+
+print("\n\n")
+print("Successfully saved text chunks and embeddings to CSV")

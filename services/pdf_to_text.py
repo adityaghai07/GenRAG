@@ -28,8 +28,3 @@ def open_and_read_pdf(pdf_path: str) -> list[dict]:
     print(f"Total pages: {len(pages_and_texts)}")
     return pages_and_texts
 
-
-
-# testing
-# pages_and_texts = open_and_read_pdf(pdf_path=pdf_path)
-# print(pages_and_texts[:15])

@@ -9,7 +9,7 @@ from llm.get_response import ask
 
 device = "cpu"
 query = input("Enter your query: ")
-# query = "What is the best way to invest in the stock market?"
+
 
 
 print("The device is set to:",device)
@@ -37,8 +37,14 @@ print("Successsfully Converted the 'embedding' column to a torch tensor.")
 print("\n\n")
 print("Retrieving the most relevant resources...")
 print("\n\n")
+
+print_top_results_and_scores(query=query, embeddings=embeddings, pages_and_chunks=pages_and_chunks)
+
+ 
 print("Using Gemini to generate a response...")
 print("\n\n")
+
+
 
 ans = ask(query=query, embeddings=embeddings, pages_and_chunks=pages_and_chunks,embeddings_df_save_path=embeddings_df_save_path)
 
