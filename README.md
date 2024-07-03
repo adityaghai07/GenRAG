@@ -46,6 +46,28 @@ GenRAG is a terminal tool designed to set up a Retrieval-Augmented Generation Pi
     ```
    Enter your query when prompted.
 
+
+
+
+## LLM Response
+
+You can use both a local LLM or an LLM from an API like Gemini for generating responses.
+
+- **Local LLM**: If you have the capability to run a local LLM, you can use it for generating responses. Cause mine is too slow :(
+
+- **LLM from API**: If your system is not powerful enough for local inference, you can use an API like Gemini. To do this, create a `.env` file and pass the Gemini API key.
+
+### Using Gemini API
+
+1. Create a `.env` file in the root directory of the project.
+2. Add your Gemini API key to the `.env` file:
+    ```env
+    GEMINI_API_KEY=your_api_key_here
+    ```
+3. The system will use the API key for generating responses through the Gemini API.
+
+
+
 ## Credits
 
 Special thanks to the following YouTube channels and research papers for their invaluable resources and insights:
