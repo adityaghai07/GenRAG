@@ -4,6 +4,7 @@ tokenizer = AutoTokenizer.from_pretrained("llmware/bling-sheared-llama-1.3b-0.1"
 model = AutoModelForCausalLM.from_pretrained("llmware/bling-sheared-llama-1.3b-0.1")
 
 # device = "cuda" if torch.cuda.is_available() else "cpu"
+
 device="cpu"
 
 
@@ -12,8 +13,8 @@ def llm_response(new_prompt:str,context:str):
     """
     Takes a prompt and returns a response from the Bling-Sheared Llama model.
     """
-    device = "cuda" if torch.cuda.is_available() else "cpu"
-    # device ="cpu"
+#     device = "cuda" if torch.cuda.is_available() else "cpu"
+    device ="cpu"
     prompt = f"""<human>: 
         {context}
 

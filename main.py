@@ -38,6 +38,7 @@ print("\n\n")
 print("Retrieving the most relevant resources...")
 print("\n\n")
 
+
 print_top_results_and_scores(query=query, embeddings=embeddings, pages_and_chunks=pages_and_chunks)
 
  
