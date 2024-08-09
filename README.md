@@ -1,5 +1,7 @@
 # GenRAG
 
+![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg)
+
 GenRAG is a terminal tool designed to set up a Retrieval-Augmented Generation Pipeline locally from scratch, without utilizing any high-level frameworks like LangChain or vector databases. It includes features such as recursive text splitting, chunking, and building embeddings. The embeddings are stored in a CSV file,without using any Vector Databases and searching is based on cosine similarity.
 
 ## Features
