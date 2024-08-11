@@ -24,7 +24,7 @@ GenRAG is a terminal tool designed to set up a Retrieval-Augmented Generation Pi
 
 2. Create and activate a virtual environment:
     ```sh
-    python -m venv env
+    python3 -m venv env
     source env/bin/activate  # On Windows use `env\Scripts\activate`
     ```
 
@@ -38,13 +38,13 @@ GenRAG is a terminal tool designed to set up a Retrieval-Augmented Generation Pi
 1. Add a PDF file to the `data` folder and change the path in the script as necessary.
 2. Create embeddings by running:
     ```sh
-    python create_embeddings.py
+    python3 create_embeddings.py
     ```
    You should see a CSV file generated in the `data` folder.
 
 3. Run the main script:
     ```sh
-    python main.py
+    python3 main.py
     ```
    Enter your query when prompted.
 
