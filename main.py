@@ -3,6 +3,7 @@ from tqdm.auto import tqdm
 import pandas as pd
 import numpy as np
 import torch
+from time import sleep
 from services.retrieve import print_wrapped,retrieve_relevant_resources,print_top_results_and_scores
 from llm.get_response import ask
 
@@ -15,6 +16,8 @@ query = input("Enter your query: ")
 print("The device is set to:",device)
 print("This may take a while...")
 
+sleep(2)
+
 
 print("Loading the Saved Embeddings DataFrame...")
 
@@ -25,6 +28,7 @@ text_chunks_and_embeddings_df = pd.read_csv(embeddings_df_save_path)
 
 
 print("Converting the 'embedding' column to a numpy array...")
+sleep(2)
 text_chunks_and_embeddings_df["embedding"] = text_chunks_and_embeddings_df["embedding"].apply(lambda x: np.fromstring(x.strip("[]"), sep=" "))
 
 
@@ -32,11 +36,13 @@ pages_and_chunks = text_chunks_and_embeddings_df.to_dict(orient="records")
 embeddings = torch.tensor(np.array(text_chunks_and_embeddings_df["embedding"].tolist()), dtype=torch.float32).to(device)
 
 print("Successsfully Converted the 'embedding' column to a torch tensor.")
-
+sleep(2)
 
 print("\n\n")
 print("Retrieving the most relevant resources...")
 print("\n\n")
+
+sleep(2)
 
 
 print_top_results_and_scores(query=query, embeddings=embeddings, pages_and_chunks=pages_and_chunks)
@@ -44,6 +50,8 @@ print_top_results_and_scores(query=query, embeddings=embeddings, pages_and_chunk
  
 print("Using Gemini to generate a response...")
 print("\n\n")
+sleep(2)
+
 
 
 

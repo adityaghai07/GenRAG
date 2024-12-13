@@ -8,6 +8,7 @@ import pandas as pd
 import warnings
 warnings.filterwarnings('ignore', category=DeprecationWarning, module='tensorflow')
 import random
+from time import sleep
 from spacy.lang.en import English 
 nlp = English()
 nlp.add_pipe("sentencizer")
@@ -26,6 +27,8 @@ print("Reading PDF and splitting text into chunks...")
 print("\n\n")
 
 pages_and_texts = open_and_read_pdf(pdf_path=pdf_path)
+
+sleep(2)
 
 for item in tqdm(pages_and_texts):
     item["sentences"] = list(nlp(item["text"]).sents)
@@ -50,6 +53,10 @@ print(df.describe().round(2))
 print("Removing text chunks with small size...")
 print("\n\n")
 
+
+sleep(2)
+
+
 pages_and_chunks_over_min_token_len = df[df["chunk_token_count"] > min_token_length].to_dict(orient="records")
 
 
@@ -60,6 +67,8 @@ print(pages_and_chunks_over_min_token_len[0])
 
 print("Saving text chunks and embeddings to CSV")
 
+sleep(2)
+
 text_chunks_and_embeddings_df = pd.DataFrame(pages_and_chunks_over_min_token_len)
 embeddings_df_save_path = "data/text_chunks_and_embeddings_df.csv"
 text_chunks_and_embeddings_df.to_csv(embeddings_df_save_path, index=False)
@@ -68,6 +77,9 @@ text_chunks_and_embeddings_df.to_csv(embeddings_df_save_path, index=False)
 
 text_chunks_and_embedding_df_load = pd.read_csv(embeddings_df_save_path)
 print(text_chunks_and_embedding_df_load.head())
+
+sleep(2)
+
 
 print("\n\n")
 print("Successfully saved text chunks and embeddings to CSV")

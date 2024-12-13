@@ -24,7 +24,7 @@ def print_wrapped(text, wrap_length=80):
 def retrieve_relevant_resources(query: str,
                                 embeddings: torch.tensor,
                                 model: SentenceTransformer=embedding_model,
-                                n_resources_to_return: int=5,
+                                n_resources_to_return: int=2,
                                 print_time: bool=True):
     """
     Embeds a query with model and returns top k scores and indices from embeddings.
@@ -50,7 +50,7 @@ def retrieve_relevant_resources(query: str,
 def print_top_results_and_scores(query: str,
                                  embeddings: torch.tensor,
                                  pages_and_chunks: list[dict],
-                                 n_resources_to_return: int=5):
+                                 n_resources_to_return: int=2):
     """
     Takes a query, retrieves most relevant resources and prints them out in descending order.
 
