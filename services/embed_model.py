@@ -14,6 +14,22 @@ embedding_model.to(device)
 
 print("Model loaded successfully")
 
-def embed_text(pages_and_chunks_over_min_token_len):
-    for item in tqdm(pages_and_chunks_over_min_token_len):
-        item["embedding"] = embedding_model.encode(item["sentence_chunk"])
+def embed_text(pages_and_chunks_over_min_token_len, batch_size=32):
+    
+    print("Embedding text chunks in batches")
+    all_chunks = [item["sentence_chunk"] for item in pages_and_chunks_over_min_token_len]
+
+    for i in tqdm(range(0, len(all_chunks), batch_size), desc="Processing batches"):
+        batch = all_chunks[i:i + batch_size]
+        
+        embeddings = embedding_model.encode(
+            batch, 
+            device=device, 
+            convert_to_tensor=True,  
+            show_progress_bar=False 
+        )
+        
+        for j, emb in enumerate(embeddings):
+            pages_and_chunks_over_min_token_len[i + j]["embedding"] = emb
+        
+    print("Embedding complete")

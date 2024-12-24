@@ -29,11 +29,24 @@ text_chunks_and_embeddings_df = pd.read_csv(embeddings_df_save_path)
 
 print("Converting the 'embedding' column to a numpy array...")
 sleep(2)
-text_chunks_and_embeddings_df["embedding"] = text_chunks_and_embeddings_df["embedding"].apply(lambda x: np.fromstring(x.strip("[]"), sep=" "))
 
 
 pages_and_chunks = text_chunks_and_embeddings_df.to_dict(orient="records")
-embeddings = torch.tensor(np.array(text_chunks_and_embeddings_df["embedding"].tolist()), dtype=torch.float32).to(device)
+
+embeddings_list = text_chunks_and_embeddings_df['embedding']
+cleaned_embeddings = []
+
+for embedding in embeddings_list:
+    embedding_cleaned = embedding.replace('tensor([', '').replace('])', '')
+    embedding_array = np.array([float(i) for i in embedding_cleaned.split(',')])
+    cleaned_embeddings.append(embedding_array)
+
+embeddings_matrix = np.vstack(cleaned_embeddings)
+embeddings = torch.tensor(embeddings_matrix, dtype=torch.float32)
+
+print("Embeddings tensor (768, N):", embeddings)
+print("Shape of embeddings:", embeddings.shape)
+
 
 print("Successsfully Converted the 'embedding' column to a torch tensor.")
 sleep(2)
@@ -58,12 +71,3 @@ sleep(2)
 ans = ask(query=query, embeddings=embeddings, pages_and_chunks=pages_and_chunks,embeddings_df_save_path=embeddings_df_save_path)
 
 print_wrapped(ans)
-
-
-
-
-
-
-
-
-
