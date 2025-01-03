@@ -1,3 +1,8 @@
+# Suppress warnings
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="huggingface_hub")
+warnings.filterwarnings("ignore", category=DeprecationWarning)  
+warnings.filterwarnings("ignore", category=UserWarning)
 from sentence_transformers import SentenceTransformer
 from tqdm.auto import tqdm
 import pandas as pd
