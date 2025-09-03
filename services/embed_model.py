@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 from tqdm.auto import tqdm
-import torch
+
 
 # device = "cuda" if torch.cuda.is_available() else "cpu"
 device = "cpu"

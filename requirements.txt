@@ -13,3 +13,4 @@ jupyter
 wheel
 google-generativeai
 python-dotenv==1.0.0
+google-genai

@@ -1,29 +1,26 @@
-
-import pathlib
-import textwrap
-import google.generativeai as genai
+from google import genai
 import os
 import dotenv
 
 dotenv.load_dotenv()
+client = genai.Client()
 
-gemini_api_key = os.getenv('GEMINI_API_KEY')
-genai.configure(api_key=gemini_api_key )
-model = genai.GenerativeModel('gemini-pro')
+response = client.models.generate_content(
+    model="gemini-2.5-flash-lite", contents="Explain how AI works in a few words"
+)
+
 
 def get_gemini_response(context, query):
-    
 
-    response = model.generate_content(f""" 
+    response = client.models.generate_content(
+        model="gemini-2.5-flash",
+        contents=f"""
     Using the context given below answer the query.
                                     
     CONTEXT: {context}
 
-    QUERY: {query}   
-
-    Make the answers long and informative.                             
-                                    """)
-
+    QUERY: {query}
+    """)
 
     return response.text
 
